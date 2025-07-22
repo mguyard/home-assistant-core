@@ -1,5 +1,5 @@
 {
-  "name": "Home Assistant Dev",
+  "name": "Diagral - Home Assistant Dev",
   "context": "..",
   "dockerFile": "../Dockerfile.dev",
   "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && script/setup",
@@ -18,6 +18,10 @@
     "--security-opt",
     "label=disable"
   ],
+  "mounts": [
+    "source=/Users/mguyard/Documents/Github/hass-diagral/custom_components/diagral,target=${containerWorkspaceFolder}/config/custom_components/diagral,type=bind",
+    "source=/Users/mguyard/Documents/Github/hass-iopool/custom_components/iopool,target=${containerWorkspaceFolder}/config/custom_components/iopool,type=bind"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -28,7 +32,8 @@
         "redhat.vscode-yaml",
         "esbenp.prettier-vscode",
         "GitHub.vscode-pull-request-github",
-        "GitHub.copilot"
+        "GitHub.copilot",
+        "chrisdias.promptboost"
       ],
       // Please keep this file in sync with settings in home-assistant/.vscode/settings.default.json
       "settings": {

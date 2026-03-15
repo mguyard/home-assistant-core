@@ -4,6 +4,11 @@ from __future__ import annotations
 
 from typing import Any, Self
 
+from tuya_device_handlers.device_wrapper.base import DeviceWrapper
+from tuya_device_handlers.device_wrapper.common import (
+    DPCodeBooleanWrapper,
+    DPCodeEnumWrapper,
+)
 from tuya_sharing import CustomerDevice, Manager
 
 from homeassistant.components.vacuum import (
@@ -18,10 +23,9 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from . import TuyaConfigEntry
 from .const import TUYA_DISCOVERY_NEW, DeviceCategory, DPCode
 from .entity import TuyaEntity
-from .models import DeviceWrapper, DPCodeBooleanWrapper, DPCodeEnumWrapper
 
 
-class _VacuumActivityWrapper(DeviceWrapper):
+class _VacuumActivityWrapper(DeviceWrapper[VacuumActivity]):
     """Wrapper for the state of a device."""
 
     _TUYA_STATUS_TO_HA = {
@@ -212,7 +216,7 @@ class TuyaVacuumEntity(TuyaEntity, StateVacuumEntity):
         self._attr_fan_speed_list = []
         self._attr_supported_features = VacuumEntityFeature.SEND_COMMAND
 
-        if action_wrapper and action_wrapper.options:
+        if action_wrapper:
             if "pause" in action_wrapper.options:
                 self._attr_supported_features |= VacuumEntityFeature.PAUSE
             if "return_to_base" in action_wrapper.options:
@@ -227,7 +231,7 @@ class TuyaVacuumEntity(TuyaEntity, StateVacuumEntity):
         if activity_wrapper:
             self._attr_supported_features |= VacuumEntityFeature.STATE
 
-        if fan_speed_wrapper and fan_speed_wrapper.options:
+        if fan_speed_wrapper:
             self._attr_fan_speed_list = fan_speed_wrapper.options
             self._attr_supported_features |= VacuumEntityFeature.FAN_SPEED
 

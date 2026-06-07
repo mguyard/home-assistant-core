@@ -33,7 +33,7 @@ repos:
         exclude: (.vscode|.devcontainer)
       - id: no-commit-to-branch
         args:
-          - --branch=dev
+          # - --branch=dev  # Mguyard - Allow commits to dev branch, as it is used for development
           - --branch=master
           - --branch=rc
   - repo: https://github.com/adrienverge/yamllint.git

@@ -1,5 +1,5 @@
 {
-  "name": "Home Assistant Dev",
+  "name": "Mguyard - Home Assistant Dev",
   "build": {
     "dockerfile": "../Dockerfile.dev",
     "context": ".."
@@ -19,6 +19,11 @@
     "GIT_EDITOR=code --wait",
     "--security-opt",
     "label=disable"
+  ],
+  "mounts": [
+    "source=/Users/mguyard/Documents/Github/hass-diagral/custom_components/diagral,target=${containerWorkspaceFolder}/config/custom_components/diagral,type=bind",
+    "source=/Users/mguyard/Documents/Github/hass-iopool/custom_components/iopool,target=${containerWorkspaceFolder}/config/custom_components/iopool,type=bind",
+    "source=/Users/mguyard/Documents/Github/hass-iopool-card/dist/iopool-card.js,target=${containerWorkspaceFolder}/config/www/iopool-card.js,type=bind"
   ],
   "customizations": {
     "vscode": {
